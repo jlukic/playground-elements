@@ -446,7 +446,7 @@ export class PlaygroundProject extends LitElement {
 
   override async firstUpdated() {
     const typescriptWorkerScriptUrl = forceSkypackRawMode(
-      new URL('./playground-typescript-worker.js', import.meta.url)
+      new URL('./playground-typescript-worker.js?worker', import.meta.url)
     );
     let worker: Worker;
     if (typescriptWorkerScriptUrl.origin === window.location.origin) {
