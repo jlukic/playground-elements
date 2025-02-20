@@ -5,7 +5,6 @@
  */
 
 import {playwrightLauncher} from '@web/test-runner-playwright';
-import {puppeteerLauncher} from '@web/test-runner-puppeteer';
 import {fakeCdnPlugin} from './test/fake-cdn-plugin.js';
 import {startDevServer} from '@web/dev-server';
 
@@ -38,19 +37,12 @@ export default {
   browsers: [
     playwrightLauncher({product: 'chromium'}),
     playwrightLauncher({product: 'webkit'}),
-    // Playwright Firefox does not currently work with service workers, see
-    // https://github.com/microsoft/playwright/issues/7288.
-    //
-    // Also note we can't use Puppeteer for both Chromium and Firefox, because
-    // only one or the other can be installed at once (see our "postinstall" NPM
-    // script). See
-    // https://modern-web.dev/docs/test-runner/browser-launchers/puppeteer/.
-    puppeteerLauncher({launchOptions: {product: 'firefox'}, concurrency: 1}),
+    playwrightLauncher({product: 'firefox'}),
   ],
   concurrentBrowsers: Number(process.env.CONCURRENT_BROWSERS) || 2, // default 2
   browserStartTimeout: 30000, // default 30000
   testsStartTimeout: 20000, // default 10000
-  testsFinishTimeout: 90000, // default 20000
+  testsFinishTimeout: 120000, // default 20000
   testFramework: {
     // https://mochajs.org/api/mocha
     config: {
